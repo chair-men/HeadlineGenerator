@@ -7,26 +7,18 @@ from transformers import (
 
 import gradio as gr
 
-pegasus_model_name = "./results/pegasus"
+# Update the paths to point to the directory of the weights
+pegasus_model_name = "./weights/pegasus"
+bart_model_name = "./weughts/bart"
 
-bart_model_lowercase_name = "./results/lowercase"
-bart_model_lowercase = BartForConditionalGeneration.from_pretrained(
-    bart_model_lowercase_name, device_map="auto"
-)
-bart_tokenizer_lowercase = BartTokenizer.from_pretrained(
-    bart_model_lowercase_name, device_map="auto"
-)
-
-bart_model_uppercase_name = "./results/no_lowercase"
-bart_model_uppercase = BartForConditionalGeneration.from_pretrained(
-    bart_model_uppercase_name, device_map="auto"
-)
-bart_tokenizer_uppercase = BartTokenizer.from_pretrained(
-    bart_model_uppercase_name, device_map="auto"
-)
-
+# Load pegasus model and tokenizer
 pegasus_model = PegasusForConditionalGeneration.from_pretrained(pegasus_model_name)
 pegasus_tokenizer = PegasusTokenizer.from_pretrained(pegasus_model_name)
+
+# Load bart model and tokenizer
+bart_model = BartForConditionalGeneration.from_pretrained(bart_model_name, device_map="auto")
+bart_tokenizer = BartTokenizer.from_pretrained(bart_model_name, device_map="auto")
+
 
 DECODER_MAX_LENGTH = 64
 
@@ -36,12 +28,9 @@ def select_model(model_name):
 
 
 def generate_headline(news, model_name):
-    if model_name == "Bart Lowercase":
-        model = bart_model_lowercase
-        tokenizer = bart_tokenizer_lowercase
-    elif model_name == "Bart Uppercase":
-        model = bart_model_uppercase
-        tokenizer = bart_tokenizer_uppercase
+    if model_name == "Bart":
+        model = bart_model
+        tokenizer = bart_tokenizer
     else:
         model = pegasus_model
         tokenizer = pegasus_tokenizer
@@ -59,7 +48,7 @@ def generate_headline(news, model_name):
     return output_str
 
 
-model_selector = gr.Dropdown(choices=["Bart Lowercase", "Bart Uppercase", "Pegasus"])
+model_selector = gr.Dropdown(choices=["Bart", "Pegasus"])
 
 demo = gr.Interface(
     fn=generate_headline,

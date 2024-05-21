@@ -9,6 +9,10 @@ We utilised pre-trained models from Huggingface and fine-tuned them to allow us 
 
 Both the above models were trained on the xsum dataset.
 
+The weights of the model can be downloaded here: [link](https://drive.google.com/drive/folders/1-YXbdJWjdsBGTrX9vrt5DRudTml6ZwT-?usp=sharing).
+
+The models can also be fine-tuned using the notebooks in the `notebooks` directory.
+
 ## Dataset used
 
 We used the [News Article Category Dataset](https://www.kaggle.com/datasets/timilsinabimal/newsarticlecategories) which consists of 6877 unique datapoints about news articles published in HuffPost, with the topic, person-generated headline and the full news article.
@@ -23,4 +27,4 @@ We used Python as our main scripting language as it has many tools that makes it
 - [Gradio](https://www.gradio.app/) for generating the user interface
 
 ## Running the application
-To run the application, run `bash install_requirements.sh`, then run `python app.py`. A server will be set up and run and will be available to use.
+To run the application, run `bash install_requirements.sh`, then run `python app.py`. A server will be set up and run and will be available to use. Update the paths in `app.py` to point to the directory of the model weights.
