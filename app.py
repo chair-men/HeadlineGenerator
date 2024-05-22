@@ -22,11 +22,6 @@ bart_tokenizer = BartTokenizer.from_pretrained(bart_model_name, device_map="auto
 
 DECODER_MAX_LENGTH = 64
 
-
-def select_model(model_name):
-    return model_name
-
-
 def generate_headline(news, model_name):
     if model_name == "Bart":
         model = bart_model
